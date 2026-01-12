@@ -1,19 +1,27 @@
-
-/* styles.css */
+/* =========================================================
+   SPARKS PRO – FULL STYLESHEET
+   Brand: Green (Primary) + Aqua (Secondary) + Gold (Accent)
+   Logo-matched colors, Hero-optimized, Production-ready
+========================================================= */
 
 /* ========== COLOR SYSTEM ========== */
 :root {
-  /* Primary Brand Colors */
-  --color-primary: #8B5CF6;        /* Vibrant Purple - Main brand color */
-  --color-primary-dark: #7C3AED;   /* Darker purple for hover states */
-  --color-primary-light: #EDE9FE;  /* Light purple for backgrounds */
+  /* Primary Brand Colors - Emerald Green (from logo) */
+  --color-primary: #10B981;        /* Emerald Green */
+  --color-primary-dark: #059669;
+  --color-primary-light: #D1FAE5;
+
+  /* Secondary Colors - Aqua/Cyan (from logo) */
+  --color-accent: #06B6D4;         /* Aqua / Cyan */
+  --color-accent-dark: #0891B2;
+  --color-accent-light: #CFFAFE;
   
-  /* Secondary/Accent Colors */
-  --color-accent: #10B981;         /* Fresh Green - Success/Clean feeling */
-  --color-accent-dark: #059669;
-  --color-accent-light: #D1FAE5;
-  
-  /* Neutral Colors */
+  /* Tertiary/Highlight - Gold (from "Pro" text) */
+  --color-gold: #F59E0B;
+  --color-gold-dark: #D97706;
+  --color-gold-light: #FEF3C7;
+
+  /* Neutrals */
   --color-white: #FFFFFF;
   --color-bg: #F8FAFC;
   --color-bg-alt: #F1F5F9;
@@ -21,21 +29,19 @@
   --color-text-secondary: #475569;
   --color-text-muted: #94A3B8;
   --color-border: #E2E8F0;
-  
-  /* Semantic Colors */
-  --color-warning: #F59E0B;
-  --color-info: #3B82F6;
-  
-  /* Spacing & Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 6px 12px rgba(0,0,0,.1);
+  --shadow-lg: 0 18px 35px rgba(0,0,0,.15);
+
+  /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
 }
 
-/* ========== GLOBAL STYLES ========== */
+/* ========== GLOBAL RESET ========== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -43,9 +49,10 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, sans-serif;
   background: var(--color-bg);
+  color: var(--color-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -58,20 +65,24 @@ body {
 
 /* ========== DISCLAIMER ========== */
 .disclaimer {
-  font-size: 12px;
-  color: var(--color-text-muted);
+  font-size: 13px;
   text-align: center;
-  padding: 0.65rem;
+  padding: 0.85rem 1rem;
   background: var(--color-accent-light);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-accent);
+  font-weight: 500;
 }
 
 /* ========== HERO SECTION ========== */
 .hero {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   color: var(--color-white);
   text-align: center;
-  padding: 4rem 0;
+  padding: 4.5rem 0 5rem;
   position: relative;
   overflow: hidden;
 }
@@ -79,12 +90,12 @@ body {
 .hero::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-  opacity: 0.4;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right,
+      rgba(255,255,255,.12),
+      transparent 55%);
+  opacity: 0.6;
 }
 
 .hero .container {
@@ -92,12 +103,21 @@ body {
   z-index: 1;
 }
 
-.logo {
-  max-width: 160px;
-  margin-bottom: 1.5rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+/* ========== LOGO (IMPORTANT) ========== */
+.logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
 }
 
+.logo {
+  max-width: 160px;
+  height: auto;
+  display: block;
+}
+
+/* ========== HERO TEXT ========== */
 .hero h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -108,26 +128,25 @@ body {
 .subtitle {
   font-size: 1.25rem;
   opacity: 0.95;
-  font-weight: 400;
   margin-bottom: 2rem;
 }
 
+/* ========== CTA BUTTONS ========== */
 .cta {
-  margin-top: 2rem;
   display: flex;
-  gap: 1rem;
   justify-content: center;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .btn {
-  border: none;
-  padding: 0.875rem 2rem;
+  padding: 0.9rem 2rem;
   border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
+  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all .2s ease;
   box-shadow: var(--shadow-sm);
 }
 
@@ -162,15 +181,13 @@ section h2 {
   font-size: 2.25rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--color-text);
 }
 
 .section-intro {
-  text-align: center;
   max-width: 700px;
   margin: 0 auto 2.5rem;
+  text-align: center;
   color: var(--color-text-secondary);
-  font-size: 1.1rem;
 }
 
 /* ========== SERVICES ========== */
@@ -180,18 +197,17 @@ section h2 {
 
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
   gap: 2rem;
-  margin-top: 3rem;
 }
 
 .card {
   background: var(--color-bg);
   padding: 2rem;
   border-radius: var(--radius-md);
-  text-align: center;
-  transition: all 0.3s ease;
   border: 1px solid var(--color-border);
+  text-align: center;
+  transition: .3s ease;
 }
 
 .card:hover {
@@ -203,20 +219,8 @@ section h2 {
 .card::before {
   content: attr(data-icon);
   font-size: 3rem;
-  display: block;
   margin-bottom: 1rem;
-}
-
-.card h3 {
-  margin: 1rem 0 0.75rem;
-  font-size: 1.25rem;
-  color: var(--color-text);
-}
-
-.card p {
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  display: block;
 }
 
 /* ========== HOW IT WORKS ========== */
@@ -229,7 +233,6 @@ section h2 {
   justify-content: center;
   gap: 3rem;
   flex-wrap: wrap;
-  margin-top: 3rem;
 }
 
 .step {
@@ -238,18 +241,17 @@ section h2 {
 }
 
 .step span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-primary);
-  color: var(--color-white);
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  font-size: 1.5rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
   margin-bottom: 1rem;
-  box-shadow: var(--shadow-md);
+  font-size: 1.5rem;
 }
 
 .step p {
@@ -324,7 +326,18 @@ section h2 {
 
 .quality-grid > div {
   text-align: center;
-  padding: 1.5rem;
+  padding: 2rem;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.quality-grid > div:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-accent);
 }
 
 .quality-grid strong {
@@ -376,8 +389,8 @@ blockquote span {
 
 /* ========== FOOTER ========== */
 .footer {
-  text-align: center;
   padding: 2rem 1rem;
+  text-align: center;
   background: var(--color-white);
   border-top: 1px solid var(--color-border);
 }
@@ -392,20 +405,16 @@ blockquote span {
   .hero h1 {
     font-size: 2rem;
   }
-  
-  .subtitle {
-    font-size: 1.1rem;
+
+  .logo {
+    max-width: 260px;
   }
-  
+
+  .logo-container {
+    padding: 1.25rem 1.5rem;
+  }
+
   section h2 {
     font-size: 1.75rem;
-  }
-  
-  .container {
-    padding: 2rem 1rem;
-  }
-  
-  .steps {
-    gap: 2rem;
   }
 }

@@ -340,6 +340,21 @@
             <div class="propertyFormDiv">
               <input class="formInput" type="email" name="email" placeholder="your@email.com" required="">
             </div>
+            <div id="captchaContainer" class="captchaContainer">
+              <div class="captchaContainerDev">
+                <div id="captchaDiv" class="captchaDiv"></div>
+                <button type="button" id="refreshCaptcha" class="refreshCaptchaBtn">
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e4e2e2" transform="rotate(0)">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path d="M21 3V8M21 8H16M21 8L18 5.29168C16.4077 3.86656 14.3051 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.2832 21 19.8675 18.008 20.777 14" stroke="#000000" stroke-width="2.208" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                  </svg>
+                </button>
+              </div>
+              <input id="captchaInput" class="captchaInput" type="text" name="captchaText" placeholder="enter captcha text" required="">
+            </div>
             <div class="propertyFormDiv">
               <label class="formCheckboxInput formCheckboxInput--inline">
                 <input class="formInput" type="checkbox" name="termsAccepted" required="" value="true" style="width: auto; padding: 0px; margin: 0px; box-shadow: none; display: inline-block;">
@@ -358,10 +373,28 @@
   </section>
 
   <script>
+    let captchaProbe
+    
+    function generateCaptcha() {
+      const captchaDiv = document.getElementById('captchaDiv')
+      fetch("https://api.bluefox.email/v1/captcha")
+        .then(response => response.json()) 
+        .then(captchaData => {
+          captchaDiv.innerHTML = captchaData.result.data
+          captchaProbe = captchaData.result.probe
+        })
+        .catch(error => {
+          console.error("Error fetching CAPTCHA:", error)
+          captchaDiv.innerHTML = error.message
+        })
+    }
+
     function checkClickOutLimit ({ errorMessageText, inputs, submitButton, backButton }){
       const timestamp = Date.now();
       const previousTimestamp = localStorage.getItem("timestamp")
       if (previousTimestamp && Number(previousTimestamp) + 5000 > timestamp) {
+        const captchaContainer = document.getElementById("captchaContainer")
+        captchaContainer.style.display = "none"
         errorMessageText.innerText = "Too many signups, please try again in a little while"
         inputs.forEach(input => {
           if (input) {
@@ -386,6 +419,7 @@
       const submitButton = document.getElementById("submitBtn")
       const loadingButton = document.getElementById("loadingBtn")
       const backButton = document.getElementById("backBtn")
+      const captchaInput = document.getElementById("captchaInput")
 
       if (checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })) { return }
 
@@ -400,6 +434,9 @@
           data[input.name] = input.value
         }
       })
+      
+      data.captchaText = captchaInput.value
+      data.captchaProbe = captchaProbe
 
       fetch(event.target.action, {
         method: "POST",
@@ -438,6 +475,8 @@
           localStorage.removeItem("timestamp")
         })
         .finally(() => {
+          const captchaContainer = document.getElementById("captchaContainer")
+          captchaContainer.style.display = "none"
           inputs.forEach(input => {
             if (input) {
               input.style.display = "none"
@@ -456,6 +495,10 @@
       const errorMessageText = document.getElementById("errorMessageText")
       const submitButton = document.getElementById("submitBtn")
       const backButton = document.getElementById("backBtn")
+      const captchaContainer = document.getElementById("captchaContainer")
+      
+      captchaContainer.style.display = "flex"
+      generateCaptcha()
 
       successMessageText.style.display = "none"
       errorMessageText.style.display = "none"
@@ -470,6 +513,13 @@
       })
       submitButton.style.display = "block"
     }
+
+    const refreshButton = document.getElementById("refreshCaptcha")
+    if (!refreshButton.classList.contains('handlers-added')) {
+      refreshButton.addEventListener("click", generateCaptcha)
+      refreshButton.classList.add("handlers-added")
+    }
+    generateCaptcha()
 
     const signupForm = document.getElementById("signupForm")
     const backButton = document.getElementById("backBtn")

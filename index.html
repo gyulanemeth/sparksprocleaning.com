@@ -28,6 +28,7 @@
   }
 
   .signupForm {
+    box-sizing: border-box;
     margin: auto;
     padding: 20px;
     border-radius: 16px;
@@ -38,13 +39,14 @@
   }
 
   .signupFormDiv {
+    box-sizing: border-box;
     width: 100%;
     display: flex;
     padding: 20px;
     justify-content: center;
     align-items: center;
     flex-direction: column
-    
+
   }
 
   .propertyFormDiv {
@@ -113,10 +115,12 @@
   }
 
   .captchaContainer {
+    box-sizing: border-box;
     display: flex;
-    text-align: center;
+    width: 100%;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10px;
     margin-right: 0px
   }
 
@@ -167,31 +171,32 @@
   }
 
   .submitBtn {
+    display: block;
+    box-sizing: border-box;
     border-radius: 4px;
     margin-bottom: 10px;
     padding: 6px 16px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    width: 100%; 
+    width: 100%;
     font-family: Roboto, sans-serif;
     font-size: 16px;
-    background-color: #10EF5A;
+    background-color: #10EF57;
     color: #FFFFFF
   }
 
   .loadingBtn {
     display: none;
+    box-sizing: border-box;
     border-radius: 4px;
     margin-bottom: 10px;
     padding: 6px 16px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    width: 100%; 
+    width: 100%;
     font-family: Roboto, sans-serif;
     font-size: 16px;
-    background-color: #10EF5A;
+    background-color: #10EF57;
     color: #FFFFFF
   }
 
@@ -213,16 +218,16 @@
 
   .backBtn {
     display: none;
+    box-sizing: border-box;
     border-radius: 4px;
     margin-bottom: 10px;
     padding: 6px 16px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     margin-top: 20px;
     font-family: Roboto, sans-serif;
     font-size: 16px;
-    background-color: #10EF5A;
+    background-color: #10EF57;
     color: #FFFFFF
   }
     
@@ -329,13 +334,13 @@
       <h2 style="text-align: center; font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem;">Stay in the Loop</h2>
       <p class="section-intro" style="margin-bottom: 2rem;">Subscribe for cleaning tips, seasonal offers, and updates from SparkPro.</p>
       <div id="signupFormContainer" class="signupFormContainer">
-        <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/699ee99d25ed6d21c75c7e34" method="POST" class="signupForm">
+        <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a6857dedb40f529da927682" method="POST" class="signupForm">
           <div class="signupFormDiv">
             <div class="propertyFormDiv">
-              <input class="formInput" type="string" name="firstName" placeholder="First Name" required="" style="order: 0;">
+              <input class="formInput" type="string" name="firstName" placeholder="firstName" style="order: 0;" required="">
             </div>
             <div class="propertyFormDiv">
-              <input class="formInput" type="string" name="lastName" placeholder="Last Name" required="" style="order: 1;">
+              <input class="formInput" type="string" name="lastName" placeholder="lastName" style="order: 1;" required="">
             </div>
             <div class="propertyFormDiv">
               <input class="formInput" type="email" name="email" placeholder="your@email.com" required="">
@@ -353,19 +358,13 @@
                   </svg>
                 </button>
               </div>
-              <input id="captchaInput" class="captchaInput" type="text" name="captchaText" placeholder="enter captcha text" required="">
-            </div>
-            <div class="propertyFormDiv">
-              <label class="formCheckboxInput formCheckboxInput--inline">
-                <input class="formInput" type="checkbox" name="termsAccepted" required="" value="true" style="width: auto; padding: 0px; margin: 0px; box-shadow: none; display: inline-block;">
-                <span class="checkbox-label-text">I have read and agree to the <a href="https://bluefox.email/" target="_blank">Terms of Use</a></span>
-              </label>
+              <input id="captchaInput" class="captchaInput" type="text" name="captchaText" required="" placeholder="enter captcha text">
             </div>
             <button id="submitBtn" type="submit" class="submitBtn">Submit</button>
             <button id="loadingBtn" type="button" class="loadingBtn">Please wait...</button>
           </div>
         </form>
-        <p id="successMessageText" class="successMessageText">Thank you for subscribing! You're now on the list to receive our latest updates straight to your inbox. We're excited to have you with us!</p>
+        <p id="successMessageText" class="successMessageText">Thank you for subscribing! You’re now on the list to receive our latest updates straight to your inbox. We’re excited to have you with us!</p>
         <p id="errorMessageText" class="errorMessageText"></p>
         <button id="backBtn" type="button" class="backBtn">Back</button>
       </div>
@@ -475,8 +474,8 @@
           localStorage.removeItem("timestamp")
         })
         .finally(() => {
-          const captchaContainer = document.getElementById("captchaContainer")
-          captchaContainer.style.display = "none"
+          document.getElementById("captchaContainer").style.display = "none";
+
           inputs.forEach(input => {
             if (input) {
               input.style.display = "none"

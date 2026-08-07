@@ -9,12 +9,6 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto&family=Open+Sans&family=Lato&family=Montserrat&family=Oswald&family=Source+Sans+Pro&family=Slabo+27px&family=Raleway&family=PT+Sans&family=Merriweather&display=swap');
-  
-  .signupFormCol {
-    min-height: 400px;
-    height: 400px;
-    max-height: 400px;
-  }
 
   .signupFormContainer {
     display: flex;
@@ -22,20 +16,21 @@
     align-items: center !important;
     justify-items: center;
     justify-content: center;
-    height: 100%;
-    max-height: 400px;
+    width: 100%;
     background-color: transparent
   }
 
   .signupForm {
     box-sizing: border-box;
     margin: auto;
-    padding: 20px;
+    padding: 32px;
     border-radius: 16px;
-    box-shadow: none;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
     display: block;
-    max-width: 400px
+    max-width: 480px
   }
 
   .signupFormDiv {
@@ -46,15 +41,23 @@
     justify-content: center;
     align-items: center;
     flex-direction: column
-
   }
 
   .propertyFormDiv {
     display: flex;
     width: 100%;
     flex: 1 0 100%;
+    flex-direction: column;
   }
-    
+
+  .fieldLabel {
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 4px;
+    align-self: flex-start;
+  }
+
   .formInput {
     box-sizing:border-box;
     border: none;
@@ -71,30 +74,39 @@
     width: 100%
   }
 
-  .formCheckboxInput {
+  .serviceOptionsGroup {
     display: flex;
-    align-items: center;
-    gap: 8px;    
-    box-sizing: border-box;
-    border: none;
-    border-radius: 4px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
     margin-bottom: 10px;
-    padding: 12px 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .serviceOptionsGroup .propertyFormDiv {
+    width: auto;
+    flex: 0 1 auto;
+  }
+
+  .formCheckboxInput {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px solid #E2E8F0;
+    border-radius: 999px;
+    padding: 8px 14px;
+    box-shadow: none;
+    cursor: pointer;
     outline: none;
     font-family: Roboto, sans-serif;
     color: #000000;
-    margin-right: 0px;
-    font-size: 16px;
-    width: 100%;
+    font-size: 14px;
+    width: auto;
   }
 
   .checkbox-label-text {
-    flex: 1;
-    overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
-    display: inline-block;
   }
 
   .formCheckboxInput--inline {
@@ -152,7 +164,7 @@
     background: transparent;
     border: none;
     font-family: Roboto, sans-serif;
-    font-size: 16px                          
+    font-size: 16px
   }
 
   .captchaInput {
@@ -166,7 +178,7 @@
     font-family: Roboto, sans-serif;
     color: #000000;
     margin-right: 0px;
-    font-size: 16px; 
+    font-size: 16px;
     width: 100%
   }
 
@@ -230,10 +242,7 @@
     background-color: #10EF57;
     color: #FFFFFF
   }
-    
-  .formInput[style*="display:none"] + .checkbox-label-text {
-    display: none;
-  }
+
   </style>
 </head>
 <body>
@@ -311,7 +320,7 @@
       <div class="quality-grid">
         <div><strong>Trained Professionals</strong><p>Our cleaning staff is trained, verified, and regularly evaluated.</p></div>
         <div><strong>Eco-friendly Products</strong><p>We use safe, non-toxic products whenever possible.</p></div>
-        <div><strong>Satisfaction Guarantee</strong><p>If something isn’t right, we’ll make it right.</p></div>
+        <div><strong>Satisfaction Guarantee</strong><p>If something isn't right, we'll make it right.</p></div>
       </div>
     </div>
   </section>
@@ -321,9 +330,9 @@
     <div class="container">
       <h2>What Our Clients Say</h2>
       <div class="testimonial-grid">
-        <blockquote><p>“Reliable, professional, and always on time. Our office has never looked better.”</p><span>— Office Manager</span></blockquote>
-        <blockquote><p>“SparkPro made moving out stress-free. The apartment was spotless.”</p><span>— Residential Customer</span></blockquote>
-        <blockquote><p>“Great communication and consistent quality every visit.”</p><span>— Property Owner</span></blockquote>
+        <blockquote><p>"Reliable, professional, and always on time. Our office has never looked better."</p><span>— Office Manager</span></blockquote>
+        <blockquote><p>"SparkPro made moving out stress-free. The apartment was spotless."</p><span>— Residential Customer</span></blockquote>
+        <blockquote><p>"Great communication and consistent quality every visit."</p><span>— Property Owner</span></blockquote>
       </div>
     </div>
   </section>
@@ -336,15 +345,58 @@
       <div id="signupFormContainer" class="signupFormContainer">
         <form id="signupForm" action="https://api.bluefox.email/v1/signup-forms/6a6857dedb40f529da927682" method="POST" class="signupForm">
           <div class="signupFormDiv">
+
             <div class="propertyFormDiv">
-              <input class="formInput" type="string" name="firstName" placeholder="firstName" style="order: 0;" required="">
+              <input class="formInput" type="text" name="firstName" placeholder="First name" style="order: 0;" required="">
             </div>
+
             <div class="propertyFormDiv">
-              <input class="formInput" type="string" name="lastName" placeholder="lastName" style="order: 1;" required="">
+              <input class="formInput" type="text" name="lastName" placeholder="Last name" style="order: 1;" required="">
             </div>
+
+            <div class="propertyFormDiv">
+              <input class="formInput" type="text" name="location" placeholder="Your neighborhood (e.g. Zilker)" style="order: 2;">
+            </div>
+
+            <div class="propertyFormDiv serviceOptionsGroup">
+              <div class="propertyFormDiv">
+                <label class="formCheckboxInput">
+                  <input class="formInput" type="checkbox" name="home" value="true" style="width: auto; padding: 0px; margin: 0px; box-shadow: none; display: inline-block;">
+                  <span class="checkbox-label-text">Home Cleaning</span>
+                </label>
+              </div>
+
+              <div class="propertyFormDiv">
+                <label class="formCheckboxInput">
+                  <input class="formInput" type="checkbox" name="office" value="true" style="width: auto; padding: 0px; margin: 0px; box-shadow: none; display: inline-block;">
+                  <span class="checkbox-label-text">Office Cleaning</span>
+                </label>
+              </div>
+
+              <div class="propertyFormDiv">
+                <label class="formCheckboxInput">
+                  <input class="formInput" type="checkbox" name="deepClean" value="true" style="width: auto; padding: 0px; margin: 0px; box-shadow: none; display: inline-block;">
+                  <span class="checkbox-label-text">Deep Cleaning</span>
+                </label>
+              </div>
+
+              <div class="propertyFormDiv">
+                <label class="formCheckboxInput">
+                  <input class="formInput" type="checkbox" name="moveInMoveOut" value="true" style="width: auto; padding: 0px; margin: 0px; box-shadow: none; display: inline-block;">
+                  <span class="checkbox-label-text">Move-in / Move-out</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="propertyFormDiv">
+              <label class="fieldLabel" for="lastServiceDate">Last service date (leave blank if you're new to SparkPro)</label>
+              <input class="formInput" id="lastServiceDate" type="date" name="lastServiceDate" style="order: 7;">
+            </div>
+
             <div class="propertyFormDiv">
               <input class="formInput" type="email" name="email" placeholder="your@email.com" required="">
             </div>
+
             <div id="captchaContainer" class="captchaContainer">
               <div class="captchaContainerDev">
                 <div id="captchaDiv" class="captchaDiv"></div>
@@ -360,11 +412,12 @@
               </div>
               <input id="captchaInput" class="captchaInput" type="text" name="captchaText" required="" placeholder="enter captcha text">
             </div>
+
             <button id="submitBtn" type="submit" class="submitBtn">Submit</button>
             <button id="loadingBtn" type="button" class="loadingBtn">Please wait...</button>
           </div>
         </form>
-        <p id="successMessageText" class="successMessageText">Thank you for subscribing! You’re now on the list to receive our latest updates straight to your inbox. We’re excited to have you with us!</p>
+        <p id="successMessageText" class="successMessageText">Thank you for subscribing! You're now on the list to receive our latest updates straight to your inbox. We're excited to have you with us!</p>
         <p id="errorMessageText" class="errorMessageText"></p>
         <button id="backBtn" type="button" class="backBtn">Back</button>
       </div>
@@ -373,11 +426,11 @@
 
   <script>
     let captchaProbe
-    
+
     function generateCaptcha() {
       const captchaDiv = document.getElementById('captchaDiv')
       fetch("https://api.bluefox.email/v1/captcha")
-        .then(response => response.json()) 
+        .then(response => response.json())
         .then(captchaData => {
           captchaDiv.innerHTML = captchaData.result.data
           captchaProbe = captchaData.result.probe
@@ -388,6 +441,15 @@
         })
     }
 
+    function setFieldWrappersDisplay(inputs, value) {
+      inputs.forEach(input => {
+        if (input) {
+          const wrapper = input.closest('.propertyFormDiv') || input
+          wrapper.style.display = value
+        }
+      })
+    }
+
     function checkClickOutLimit ({ errorMessageText, inputs, submitButton, backButton }){
       const timestamp = Date.now();
       const previousTimestamp = localStorage.getItem("timestamp")
@@ -395,13 +457,7 @@
         const captchaContainer = document.getElementById("captchaContainer")
         captchaContainer.style.display = "none"
         errorMessageText.innerText = "Too many signups, please try again in a little while"
-        inputs.forEach(input => {
-          if (input) {
-            input.style.display = "none"
-            const label = input.closest('label.formCheckboxInput')
-            if (label) { label.style.display = 'none' }
-          }
-        })
+        setFieldWrappersDisplay(inputs, "none")
         submitButton.style.display = "none"
         errorMessageText.style.display = "block"
         backButton.style.display = "block"
@@ -433,7 +489,7 @@
           data[input.name] = input.value
         }
       })
-      
+
       data.captchaText = captchaInput.value
       data.captchaProbe = captchaProbe
 
@@ -476,13 +532,7 @@
         .finally(() => {
           document.getElementById("captchaContainer").style.display = "none";
 
-          inputs.forEach(input => {
-            if (input) {
-              input.style.display = "none"
-              const label = input.closest('label.formCheckboxInput')
-              if (label) { label.style.display = 'none' }
-            }
-          })
+          setFieldWrappersDisplay(inputs, "none")
           loadingButton.style.display = "none"
           backButton.style.display = "block"
         })
@@ -495,7 +545,7 @@
       const submitButton = document.getElementById("submitBtn")
       const backButton = document.getElementById("backBtn")
       const captchaContainer = document.getElementById("captchaContainer")
-      
+
       captchaContainer.style.display = "flex"
       generateCaptcha()
 
@@ -503,13 +553,7 @@
       errorMessageText.style.display = "none"
       errorMessageText.innerText = "Oops! Something went wrong, please try again."
       backButton.style.display = "none"
-      inputs.forEach(input => {
-        if (input) {
-          input.style.display = "block"
-          const label = input.closest('label.formCheckboxInput')
-          if (label) { label.style.display = 'flex' }
-        }
-      })
+      setFieldWrappersDisplay(inputs, "flex")
       submitButton.style.display = "block"
     }
 

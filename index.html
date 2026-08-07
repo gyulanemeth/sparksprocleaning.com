@@ -441,24 +441,12 @@
         })
     }
 
-    function setFieldWrappersDisplay(inputs, value) {
-      inputs.forEach(input => {
-        if (input) {
-          const wrapper = input.closest('.propertyFormDiv') || input
-          wrapper.style.display = value
-        }
-      })
-    }
-
-    function checkClickOutLimit ({ errorMessageText, inputs, submitButton, backButton }){
+    function checkClickOutLimit ({ form, errorMessageText, backButton }){
       const timestamp = Date.now();
       const previousTimestamp = localStorage.getItem("timestamp")
       if (previousTimestamp && Number(previousTimestamp) + 5000 > timestamp) {
-        const captchaContainer = document.getElementById("captchaContainer")
-        captchaContainer.style.display = "none"
         errorMessageText.innerText = "Too many signups, please try again in a little while"
-        setFieldWrappersDisplay(inputs, "none")
-        submitButton.style.display = "none"
+        form.style.display = "none"
         errorMessageText.style.display = "block"
         backButton.style.display = "block"
         return true
@@ -476,7 +464,9 @@
       const backButton = document.getElementById("backBtn")
       const captchaInput = document.getElementById("captchaInput")
 
-      if (checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })) { return }
+      if (checkClickOutLimit({ form, errorMessageText, backButton })) { 
+        return
+      }
 
       localStorage.setItem("timestamp", Date.now())
       submitButton.style.display = "none"
@@ -522,7 +512,7 @@
         })
         .catch(error => {
           if (error.message === "Failed to fetch") {
-            checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })
+            checkClickOutLimit({ form, errorMessageText, backButton })
             return
           }
           errorMessageText.style.display = "block";
@@ -530,31 +520,29 @@
           localStorage.removeItem("timestamp")
         })
         .finally(() => {
-          document.getElementById("captchaContainer").style.display = "none";
-
-          setFieldWrappersDisplay(inputs, "none")
+          form.style.display = "none"
           loadingButton.style.display = "none"
           backButton.style.display = "block"
         })
     }
 
     function resetFormHandler() {
-      const inputs = document.querySelectorAll(".formInput")
+      const form = document.getElementById("signupForm")
       const successMessageText = document.getElementById("successMessageText")
       const errorMessageText = document.getElementById("errorMessageText")
       const submitButton = document.getElementById("submitBtn")
+      const loadingButton = document.getElementById("loadingBtn")
       const backButton = document.getElementById("backBtn")
-      const captchaContainer = document.getElementById("captchaContainer")
 
-      captchaContainer.style.display = "flex"
       generateCaptcha()
 
       successMessageText.style.display = "none"
       errorMessageText.style.display = "none"
       errorMessageText.innerText = "Oops! Something went wrong, please try again."
       backButton.style.display = "none"
-      setFieldWrappersDisplay(inputs, "flex")
+      loadingButton.style.display = "none"
       submitButton.style.display = "block"
+      form.style.display = "block"
     }
 
     const refreshButton = document.getElementById("refreshCaptcha")
